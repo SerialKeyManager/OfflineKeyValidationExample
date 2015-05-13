@@ -22,7 +22,7 @@
                 ' everything is fine!
             Else
                 KeyActivation()
-                ' now, we should repeat the procedure, i.e. try to run offlinekeyvalidation again.
+                ' now, we should repeat the procedure, i.e. try to run keyactivation again.
             End If
 
         Else
