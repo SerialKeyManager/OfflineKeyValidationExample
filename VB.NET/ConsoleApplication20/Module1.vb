@@ -4,7 +4,7 @@
         OfflineKeyValidation()
     End Sub
 
-    Public Function OfflineKeyValidation()
+    Public Sub OfflineKeyValidation()
 
         ' this key is found on https://serialkeymanager.com/User/Security
         Dim RSAPublicKey = "<RSAKeyValue><Modulus>js3sJGrsVz9FpmJfFDwNQvM418ntvcM6UyHIbQCblqZycJ8hyGOxbMG7NMToPPAEel/f1JIDfZfAFbXi4jaLOuyP4KmnKwlLnz9pHjauK4aoN/TUCR1bpxLaxkROzasJodMAqG9Jdty+Or/459BAdlx62RcxqjNxiBqwGaY6OsTfE0046BavS/Pgcv8fRzagi6VCprzn/QSezrn4COOyLPijwA3kPyZ1XOkjO1cT4SxFQOlzD1V2gtiLMPvMPXUH83YkpVgtb08bbzroyVUNC5GwLck8bPhL6kyJ/vxJPI7j71XrvGaPmDv2BJ3s0sI6x2Ny/dgtwt3GiEZk87YoIw==</Modulus><Exponent>AQAB</Exponent></RSAKeyValue>"
@@ -34,9 +34,9 @@
             ' now, we should repeat the procedure, i.e. try to run offlinekeyvalidation again.
         End If
 
-    End Function
+    End Sub
 
-    Public Function KeyActivation()
+    Public Function KeyActivation() As SKGL.KeyInformation
         Dim machineCode = SKGL.SKM.getMachineCode(AddressOf SKGL.SKM.getSHA1)
         Dim KeyInfo = SKGL.SKM.KeyActivation("3", "2", "751963", "MJAWL-ITPVZ-LKGAN-DLJDN", machineCode, secure:=True, signMid:=True, signDate:=True)
 
