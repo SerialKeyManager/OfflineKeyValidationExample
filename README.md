@@ -9,4 +9,4 @@ Offline key validation allows you to perform key validation periodically or only
 This repository contains examples in both VB.NET and C#.
 
 ### Remarks
-Solutions can be made even safer by checking the activation date. It will be signed if you set signDate to true during activation and later check the time difference. If you would have any questions, pleas feel free to ask them here (http://support.serialkeymanager.com/forums/)
+Solutions can be made even safer by checking the activation date. It will be signed if you set signDate to true during activation and later check the time difference. If you would have any questions, please feel free to ask them here (http://support.serialkeymanager.com/forums/)
