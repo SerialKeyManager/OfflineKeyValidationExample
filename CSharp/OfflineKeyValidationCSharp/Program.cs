@@ -11,18 +11,93 @@ namespace OfflineKeyValidationCSharp
     {
         static void Main(string[] args)
         {
-            OfflineKeyValidation();
+            OfflineKeyValidationNew();
+            OfflineKeyValidationWithPeriodicTimeCheck();
+            OfflineKeyValidationOld();
         }
 
-        public static void OfflineKeyValidation()
+
+        public static void OfflineKeyValidationNew()
+        {
+            var RSAPublicKey = "<RSAKeyValue><Modulus>sGbvxwdlDbqFXOMlVUnAF5ew0t0WpPW7rFpI5jHQOFkht/326dvh7t74RYeMpjy357NljouhpTLA3a6idnn4j6c3jmPWBkjZndGsPL4Bqm+fwE48nKpGPjkj4q/yzT4tHXBTyvaBjA8bVoCTnu+LiC4XEaLZRThGzIn5KQXKCigg6tQRy0GXE13XYFVz/x1mjFbT9/7dS8p85n8BuwlY5JvuBIQkKhuCNFfrUxBWyu87CFnXWjIupCD2VO/GbxaCvzrRjLZjAngLCMtZbYBALksqGPgTUN7ZM24XbPWyLtKPaXF2i4XRR9u6eTj5BfnLbKAU5PIVfjIS+vNYYogteQ==</Modulus><Exponent>AQAB</Exponent></RSAKeyValue>";
+
+            var keyInfo = new KeyInformation().LoadFromFile("license.txt");
+
+            if(keyInfo.HasValidSignature(RSAPublicKey).IsValid())
+            {
+                // the signature is correct so
+                // the program can now launch
+            }
+            else
+            {
+                var machineCode = SKGL.SKM.getMachineCode(SKGL.SKM.getSHA1);
+                keyInfo = SKGL.SKM.KeyActivation("3", "2", "751963", "MJAWL-ITPVZ-LKGAN-DLJDN", machineCode, secure: true, signMid: true, signDate: true);
+
+                if(keyInfo.HasValidSignature(RSAPublicKey).IsValid())
+                {
+                    // the signature is correct and the key is valid.
+                    // save to file.
+                    keyInfo.SaveToFile("license.txt");
+
+                    // the program can now launch
+                }
+                else
+                {
+                    // failure. close the program.
+                }
+            }
+
+        }
+
+        /// <summary>
+        /// The only difference between this method and OfflineKeyValidationNew is that
+        /// we make the activation files expire after a certain amount of days,
+        /// which will force the user to connect to the Internet again. In this case,
+        /// they can use the software offline for 30 days. 
+        /// </summary>
+        public static void OfflineKeyValidationWithPeriodicTimeCheck()
+        {
+            var RSAPublicKey = "<RSAKeyValue><Modulus>sGbvxwdlDbqFXOMlVUnAF5ew0t0WpPW7rFpI5jHQOFkht/326dvh7t74RYeMpjy357NljouhpTLA3a6idnn4j6c3jmPWBkjZndGsPL4Bqm+fwE48nKpGPjkj4q/yzT4tHXBTyvaBjA8bVoCTnu+LiC4XEaLZRThGzIn5KQXKCigg6tQRy0GXE13XYFVz/x1mjFbT9/7dS8p85n8BuwlY5JvuBIQkKhuCNFfrUxBWyu87CFnXWjIupCD2VO/GbxaCvzrRjLZjAngLCMtZbYBALksqGPgTUN7ZM24XbPWyLtKPaXF2i4XRR9u6eTj5BfnLbKAU5PIVfjIS+vNYYogteQ==</Modulus><Exponent>AQAB</Exponent></RSAKeyValue>";
+
+            var keyInfo = new KeyInformation().LoadFromFile("license2.txt");
+
+            if (keyInfo.HasValidSignature(RSAPublicKey, 30)
+                       .IsValid())
+            {
+                // the signature is correct so
+                // the program can now launch
+            }
+            else
+            {
+                var machineCode = SKGL.SKM.getMachineCode(SKGL.SKM.getSHA1);
+                keyInfo = SKGL.SKM.KeyActivation("3", "2", "751963", "MJAWL-ITPVZ-LKGAN-DLJDN", machineCode, secure: true, signMid: true, signDate: true);
+
+                if (keyInfo.HasValidSignature(RSAPublicKey).IsValid())
+                {
+                    // the signature is correct and the key is valid.
+                    // save to file.
+                    keyInfo.SaveToFile("license2.txt");
+
+                    // the program can now launch
+                }
+                else
+                {
+                    // failure. close the program.
+                }
+            }
+
+        }
+
+
+
+
+        public static void OfflineKeyValidationOld()
         {
             // this key is found on https://serialkeymanager.com/User/Security
             var RSAPublicKey = "<RSAKeyValue><Modulus>js3sJGrsVz9FpmJfFDwNQvM418ntvcM6UyHIbQCblqZycJ8hyGOxbMG7NMToPPAEel/f1JIDfZfAFbXi4jaLOuyP4KmnKwlLnz9pHjauK4aoN/TUCR1bpxLaxkROzasJodMAqG9Jdty+Or/459BAdlx62RcxqjNxiBqwGaY6OsTfE0046BavS/Pgcv8fRzagi6VCprzn/QSezrn4COOyLPijwA3kPyZ1XOkjO1cT4SxFQOlzD1V2gtiLMPvMPXUH83YkpVgtb08bbzroyVUNC5GwLck8bPhL6kyJ/vxJPI7j71XrvGaPmDv2BJ3s0sI6x2Ny/dgtwt3GiEZk87YoIw==</Modulus><Exponent>AQAB</Exponent></RSAKeyValue>";
 
 
-
             var KeyInfo = SKGL.SKM.LoadKeyInformationFromFile("licenseinfo.txt");
-
 
             // if fileLoaded is true, there is already an "activation file", 
             // so no need to check with the server.

@@ -35,8 +35,9 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="SKM">
-      <HintPath>..\packages\SKGLExtension.2.0.5.1\lib\SKM.dll</HintPath>
+    <Reference Include="SKM, Version=2.0.7.1, Culture=neutral, PublicKeyToken=e62d9da6f287ebbb, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\SKGL-Extension-for-dot-NET\SKM\bin\Debug\SKM.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
