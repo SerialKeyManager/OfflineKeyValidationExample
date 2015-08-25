@@ -23,7 +23,9 @@ namespace OfflineKeyValidationCSharp
 
             var keyInfo = new KeyInformation().LoadFromFile("license.txt");
 
-            if(keyInfo.HasValidSignature(RSAPublicKey).IsValid())
+            if(keyInfo.HasValidSignature(RSAPublicKey)
+                      .IsOnRightMachine()
+                      .IsValid())
             {
                 // the signature is correct so
                 // the program can now launch
@@ -33,7 +35,9 @@ namespace OfflineKeyValidationCSharp
                 var machineCode = SKGL.SKM.getMachineCode(SKGL.SKM.getSHA1);
                 keyInfo = SKGL.SKM.KeyActivation("3", "2", "751963", "MJAWL-ITPVZ-LKGAN-DLJDN", machineCode, secure: true, signMid: true, signDate: true);
 
-                if(keyInfo.HasValidSignature(RSAPublicKey).IsValid())
+                if(keyInfo.HasValidSignature(RSAPublicKey)
+                          .IsOnRightMachine()
+                          .IsValid())
                 {
                     // the signature is correct and the key is valid.
                     // save to file.
@@ -62,6 +66,7 @@ namespace OfflineKeyValidationCSharp
             var keyInfo = new KeyInformation().LoadFromFile("license2.txt");
 
             if (keyInfo.HasValidSignature(RSAPublicKey, 30)
+                       .IsOnRightMachine()
                        .IsValid())
             {
                 // the signature is correct so
@@ -72,7 +77,9 @@ namespace OfflineKeyValidationCSharp
                 var machineCode = SKGL.SKM.getMachineCode(SKGL.SKM.getSHA1);
                 keyInfo = SKGL.SKM.KeyActivation("3", "2", "751963", "MJAWL-ITPVZ-LKGAN-DLJDN", machineCode, secure: true, signMid: true, signDate: true);
 
-                if (keyInfo.HasValidSignature(RSAPublicKey).IsValid())
+                if (keyInfo.HasValidSignature(RSAPublicKey)
+                           .IsOnRightMachine()
+                           .IsValid())
                 {
                     // the signature is correct and the key is valid.
                     // save to file.
